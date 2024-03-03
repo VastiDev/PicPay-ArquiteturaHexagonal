@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController implements UserAPI {
@@ -22,5 +24,11 @@ public class UserController implements UserAPI {
     public UserDetailedResponse getUserById(Long id) {
         UserDetailedResponse userDetailed = userService.getUserById(id);
         return userDetailed;
+    }
+
+    @Override
+    public List<UserListResponse> getAllUsers() {
+        List<UserListResponse> users = userService.getAllUsers();
+        return users;
     }
 }

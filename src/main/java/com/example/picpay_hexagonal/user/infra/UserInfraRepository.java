@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -26,5 +27,11 @@ public class UserInfraRepository implements UserRepository {
                 .orElseThrow(()-> APIException.build(HttpStatus.NOT_FOUND,
                         "Usuário não encontrado"));
         return user;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> allUsers = userSpringSataJpaRepository.findAll();
+        return allUsers;
     }
 }
