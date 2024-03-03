@@ -1,4 +1,4 @@
-package com.example.picpay_hexagonal.domain.user;
+package com.example.picpay_hexagonal.user.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
-public class Users {
+public class User {
 
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

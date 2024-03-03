@@ -1,6 +1,7 @@
-package com.example.picpay_hexagonal.domain.transaction;
+package com.example.picpay_hexagonal.transaction.domain;
 
-import com.example.picpay_hexagonal.domain.user.Users;
+
+import com.example.picpay_hexagonal.user.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,10 +23,10 @@ public class Transaction {
     private BigDecimal amount;
     @ManyToOne
     @JoinColumn(name="sender_id")
-    private Users sender;
+    private User sender;
     @JoinColumn(name="receiver_id")
     @ManyToOne
-    private Users receiver;
+    private User receiver;
     private LocalDateTime timestamp;
 }
 
