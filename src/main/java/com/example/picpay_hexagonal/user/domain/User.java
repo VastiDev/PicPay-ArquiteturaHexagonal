@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity(name= "users")
 @Table(name="users")
@@ -28,6 +29,7 @@ public class User {
     private BigDecimal balance;
     @Enumerated(EnumType.STRING)
     private UserType userType;
+    private LocalDateTime localDateTime;
 
     public User(UserRequest userRequest) {
         this.firstName = userRequest.getFirstName();
