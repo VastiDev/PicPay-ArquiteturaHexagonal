@@ -1,5 +1,6 @@
 package com.example.picpay_hexagonal.user.domain;
 
+import com.example.picpay_hexagonal.user.application.api.UserRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +17,7 @@ public class User {
 
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     private String firstName;
     private String lastName;
     @Column(unique = true)
@@ -27,4 +28,15 @@ public class User {
     private BigDecimal balance;
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    public User(UserRequest userRequest) {
+        this.firstName = userRequest.getFirstName();
+        this.lastName = userRequest.getLastName();
+        this.document = userRequest.getDocument();
+        this.email = userRequest.getEmail();
+        this.password = userRequest.getPassword();
+        this.balance = userRequest.getBalance();
+        this.userType = userRequest.getUserType();
+    }
+
 }
