@@ -1,6 +1,7 @@
 package com.example.picpay_hexagonal.transaction.domain;
 
 
+import com.example.picpay_hexagonal.transaction.application.api.TransactionRequest;
 import com.example.picpay_hexagonal.user.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,5 +29,7 @@ public class Transaction {
     @ManyToOne
     private User receiver;
     private LocalDateTime timestamp;
-}
+
+    }
+
 

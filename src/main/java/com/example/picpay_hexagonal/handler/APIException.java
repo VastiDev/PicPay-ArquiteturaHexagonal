@@ -13,7 +13,7 @@ public class APIException extends RuntimeException {
 	private HttpStatus statusException;
 	private ErrorApiResponse bodyException;
 
-	private APIException(HttpStatus statusException, String message, Exception e) {
+	public APIException(HttpStatus statusException, String message, Exception e) {
 		super(message, e);
 		this.statusException = statusException;
 		this.bodyException = ErrorApiResponse.builder()

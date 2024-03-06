@@ -40,5 +40,9 @@ public class User {
         this.balance = userRequest.getBalance();
         this.userType = userRequest.getUserType();
     }
-
+        public boolean canSendMoney(BigDecimal amount) {
+            return this.userType != UserType.MERCHANT && this.balance.compareTo(amount) >= 0;
+        }
 }
+
+
