@@ -8,7 +8,16 @@ import lombok.ToString;
 @ToString
 public class TransactionResponse {
     private Long id;
-    public TransactionResponse(Transaction transaction) {
+    private String statusMessage;
+
+    public TransactionResponse(Transaction transaction, String statusMessage) {
         this.id = transaction.getId();
+        this.statusMessage = statusMessage;
+    }
+
+    public TransactionResponse(Transaction savedTransaction) {
+        this.id = savedTransaction.getId();
+        this.statusMessage = "Transação concluída com sucesso!";
     }
 }
+

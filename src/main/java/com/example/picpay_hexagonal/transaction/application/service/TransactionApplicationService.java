@@ -1,6 +1,8 @@
 package com.example.picpay_hexagonal.transaction.application.service;
 
+import com.example.picpay_hexagonal.authorization.AuthorizationService;
 import com.example.picpay_hexagonal.handler.APIException;
+import com.example.picpay_hexagonal.notification.NotificationService;
 import com.example.picpay_hexagonal.transaction.application.api.TransactionRequest;
 import com.example.picpay_hexagonal.transaction.application.api.TransactionResponse;
 import com.example.picpay_hexagonal.transaction.application.repository.TransactionRepository;
@@ -24,6 +26,8 @@ public class TransactionApplicationService implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final UserRepository userRepository;
     private final UserApplicationService userService;
+    private final AuthorizationService authorizationService;
+    private final NotificationService notificationService;
 
     @Override
     public TransactionResponse createTransaction(TransactionRequest transactionRequest) throws Exception {
@@ -32,12 +36,20 @@ public class TransactionApplicationService implements TransactionService {
 
         validateAndAuthorizeTransaction(sender, receiver, transactionRequest.getAmount());
 
+        boolean isAuthorized = authorizationService.authorizeTransaction(transactionRequest);
+        if (!isAuthorized) {
+            throw APIException.build(HttpStatus.BAD_REQUEST,"Transação não autorizada.");
+        }
+
         Transaction transaction = createAndSaveTransaction(sender, receiver, transactionRequest.getAmount());
 
         Transaction savedTransaction = transactionRepository.save(transaction);
         log.info("transação salva:{}", transaction);
 
         userService.updateBalances(sender, receiver, transaction.getAmount());;
+
+        notificationService.sendNotification(sender, "Transação realizada com sucesso");
+        notificationService.sendNotification(receiver, "Transação recebida com sucesso");
 
         return new TransactionResponse(savedTransaction);
     }
