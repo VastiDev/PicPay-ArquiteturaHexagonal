@@ -12,6 +12,7 @@ import java.util.Optional;
 @Getter
 @ToString
 public class UserDetailedResponse {
+    private Long id;
     private String firstName;
     private String lastName;
     private String document;
@@ -22,6 +23,7 @@ public class UserDetailedResponse {
     private LocalDateTime localDateTime;
 
     public UserDetailedResponse(User user) {
+        this.id = user.getId();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.document = user.getDocument();
